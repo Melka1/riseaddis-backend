@@ -9,7 +9,8 @@
     "start": "node index.js",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "echo hello"
+    "vercel-build": "echo hello",
+    "postinstall": "prisma generate"
   },
   "author": "",
   "license": "ISC",
