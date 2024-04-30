@@ -8,7 +8,7 @@ import getRealEstate from "../controllers/realestateController/getRealestate.js"
 
 const realestateRoute = Router();
 
-realestateRoute.get("/:id", getRealEstate);
+realestateRoute.get("/:name", getRealEstate);
 realestateRoute.get("/", getRealEstates);
 realestateRoute.post("/", addRealestate);
 realestateRoute.put("/", updateRealestate);

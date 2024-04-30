@@ -6,13 +6,13 @@ import unitRoute from "./src/routes/unitRoute.js";
 import siteRoute from "./src/routes/siteRoute.js";
 import realestateRoute from "./src/routes/realestateRoute.js";
 
-const PORT = dotenv.config(process.cwd, ".env").parsed.PORT;
+const { WEBSITE_URL, PORT } = dotenv.config(process.cwd, ".env").parsed;
 
 const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: WEBSITE_URL,
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
   })

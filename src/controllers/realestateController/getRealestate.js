@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 const getRealEstate = async (req, res) => {
-  const { name } = req.query;
+  const { name } = req.params;
 
   const prisma = new PrismaClient();
 
