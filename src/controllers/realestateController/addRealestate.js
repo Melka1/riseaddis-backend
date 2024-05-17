@@ -1,7 +1,21 @@
 import { PrismaClient } from "@prisma/client";
 
 const addRealestate = async (req, res) => {
-  const { name, images } = req.body;
+  const {
+    name,
+    images,
+    background,
+    sisterCompanies,
+    previousProjects,
+    activeProjects,
+  } = req.body;
+
+  if (!name) {
+    return res.status(400).json({
+      message: "Name is required",
+      error: true,
+    });
+  }
 
   const prisma = new PrismaClient();
 
@@ -16,9 +30,20 @@ const addRealestate = async (req, res) => {
   }
 
   try {
-    let realestate = await prisma.realEstate.create({ data: { name, images } });
+    let realestate = await prisma.realEstate.create({
+      data: {
+        name,
+        images,
+        link: name.toLowerCase().split(/\s|-/).join("-"),
+        background,
+        sisterCompanies: sisterCompanies || [],
+        previousProjects: previousProjects || [],
+        activeProjects: activeProjects || [],
+      },
+    });
     res.status(200).json(realestate);
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       message: err.message,
       error: true,

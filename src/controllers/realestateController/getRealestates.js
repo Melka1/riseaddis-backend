@@ -4,6 +4,7 @@ const getRealEstates = async (req, res) => {
   const prisma = new PrismaClient();
 
   const realEstates = await prisma.realEstate.findMany({
+    where: { status: "active" },
     include: { sites: true },
   });
   console.log(realEstates);

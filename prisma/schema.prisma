@@ -33,20 +33,6 @@ model Unit {
   status Status @default(draft)
 }
 
-// model Apartment {
-//   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-//   images String[]
-
-//   amenities Amenity[] @relation(fields: [amenityIds], references: [id])
-//   amenityIds String[] @db.ObjectId @default([])
-
-//   units Unit[]
-//   site   Site   @relation(fields: [siteId], references: [id])
-//   siteId String @db.ObjectId
-
-//   status Status @default(draft)
-// } 
-
 model Site {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   name String
@@ -74,10 +60,14 @@ model Site {
 }
 
 model RealEstate {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
   name String
   link String
   images String[]
+  background String?
+  sisterCompanies String[]
+  previousProjects String[]
+  activeProjects String[]
 
   sites Site[]
 
