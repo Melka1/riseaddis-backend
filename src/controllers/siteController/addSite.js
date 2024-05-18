@@ -14,7 +14,9 @@ const addSite = async (req, res) => {
     twoBedrooms,
     threeBedrooms,
     realestate,
+    numberOfUnits,
     images,
+    deliveryTime,
   } = req.body;
 
   if (!name || !realestate) {
@@ -32,7 +34,9 @@ const addSite = async (req, res) => {
     !oneBedrooms &&
     !twoBedrooms &&
     !threeBedrooms &&
-    !stage
+    !stage &&
+    !numberOfUnits &&
+    !deliveryTime
   ) {
     return res.status(400).json({
       message: "At least one field is required",
@@ -55,6 +59,7 @@ const addSite = async (req, res) => {
     let site = await prisma.site.create({
       data: {
         name,
+        link: name.toLowerCase().split(/\s|-/).join("-"),
         description,
         location,
         stage,
@@ -66,19 +71,22 @@ const addSite = async (req, res) => {
         twoBedrooms,
         threeBedrooms,
         realEstateId: realestate,
+        numberOfUnits,
+        deliveryTime,
         images,
       },
     });
 
     return res.status(200).json(site);
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       message: err.message,
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
-
-  // prisma.$disconnect();
 };
 
 export default addSite;

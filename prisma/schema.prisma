@@ -43,13 +43,16 @@ model Site {
   builtUpArea Float?
   floors Int?
   basementCount Int?
-  parkingLots Int?
+  parkingLots String?
   oneBedrooms Int?
   twoBedrooms Int?
   threeBedrooms Int?
+  numberOfUnits Int?
   images String[] @default([])
-  stage Stage?
+  stage String?
+  price Int?
   amenities Amenity[]
+  deliveryTime String?
 
   units Unit[]
   
@@ -99,7 +102,7 @@ enum Status {
   inactive
 }
 
-enum Stage {
-  under_construction
-  finished
-}
+// enum Stage {
+//   under_construction
+//   finished
+// }
