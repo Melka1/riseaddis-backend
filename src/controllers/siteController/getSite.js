@@ -1,13 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 
 const getSite = async (req, res) => {
-  const { id } = req.query;
+  const { name } = req.params;
 
   const prisma = new PrismaClient();
 
   const site = await prisma.site.findFirst({
-    where: { id },
-    include: { realEstate: true },
+    where: { link: name },
+    include: { realEstate: true, units: true },
   });
   console.log(site);
   res.status(200).json({ site });

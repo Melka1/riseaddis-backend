@@ -7,7 +7,7 @@ import deleteSite from "../controllers/siteController/deleteSite.js";
 
 const siteRoute = Router();
 
-siteRoute.get("/:id", getSite);
+siteRoute.get("/:name", getSite);
 siteRoute.get("/", getSites);
 siteRoute.post("/", addSite);
 siteRoute.put("/", updateSite);

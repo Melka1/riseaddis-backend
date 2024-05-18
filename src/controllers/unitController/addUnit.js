@@ -10,7 +10,6 @@ const addUnit = async (req, res) => {
     totalArea,
     payments,
     available,
-    // images,
     siteId,
     images,
   } = req.body;
@@ -19,17 +18,17 @@ const addUnit = async (req, res) => {
 
   if (
     !siteId ||
-    !bathroom ||
-    !bedroom ||
-    !balcony ||
-    !netArea ||
-    !commonArea ||
-    !totalArea ||
-    !payments ||
-    !available
+    !bathroom
+    // !bedroom ||
+    // !balcony ||
+    // !netArea ||
+    // !commonArea ||
+    // !totalArea ||
+    // !payments ||
+    // !available
   ) {
     return res.status(400).json({
-      message: "Please provide all the required fields",
+      message: "Please provide required fields",
       error: false,
     });
   }
@@ -39,7 +38,6 @@ const addUnit = async (req, res) => {
   try {
     const unit = await prisma.unit.create({
       data: {
-        // images,
         siteId,
         bathroom,
         bedroom,
