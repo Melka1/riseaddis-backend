@@ -46,7 +46,10 @@ const addUnit = async (req, res) => {
         commonArea,
         totalArea,
         payments,
-        images,
+        images: [
+          ...images,
+          "https://res.cloudinary.com/dchmblw88/image/upload/v1715964244/RAP_-_Logo_Design_V02-04_fy5srs.jpg",
+        ],
         available,
       },
     });

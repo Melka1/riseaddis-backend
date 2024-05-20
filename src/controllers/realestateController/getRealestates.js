@@ -5,10 +5,9 @@ const getRealEstates = async (req, res) => {
 
   const realEstates = await prisma.realEstate.findMany({
     where: { status: "active" },
-    include: { sites: true },
+    include: { sites: { select: { name: true, price: true, link: true } } },
   });
-  console.log(realEstates);
-  res.status(200).json({ realEstates });
+  return res.status(200).json({ realEstates });
 };
 
 export default getRealEstates;

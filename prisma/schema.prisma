@@ -24,7 +24,7 @@ model Unit {
   netArea Float
   commonArea Float
   totalArea Float
-  payments Payment[]
+  // payments Payment[]
   available Int
 
   site Site @relation(fields: [siteId], references: [id])
@@ -54,6 +54,9 @@ model Site {
   amenities Amenity[]
   deliveryTime String?
 
+  payments Payment[] //@relation(fields: [paymentIds], references: [id])
+  // paymentIds String[] @db.ObjectId
+
   units Unit[]
   
   realEstate RealEstate @relation(fields: [realEstateId], references: [id])
@@ -80,15 +83,38 @@ model RealEstate {
 model Amenity {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  image String?
+
+  image ImageGallery @relation(fields: [imageId], references: [id])
+  imageId String @db.ObjectId
 
   site Site @relation(fields: [siteId], references: [id])
   siteId String @db.ObjectId
 }
 
-type Payment {
+model ImageGallery {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @default("")
+  imageUrl String
+
+  amemity Amenity[]
+}
+
+model Payment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  paymentType PaymentType @relation(fields: [paymentTypeId], references: [id])
+  paymentTypeId String @db.ObjectId
+
+  list PaymentList[]
+
+  site Site @relation(fields: [siteId], references: [id])
+  siteId String @db.ObjectId
+}
+
+model PaymentType {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  value Int
+
+  payments Payment[]
 }
 
 enum Role {
@@ -102,7 +128,7 @@ enum Status {
   inactive
 }
 
-// enum Stage {
-//   under_construction
-//   finished
-// }
+type PaymentList {
+  name String
+  value String
+}

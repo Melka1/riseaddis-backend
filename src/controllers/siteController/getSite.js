@@ -7,7 +7,18 @@ const getSite = async (req, res) => {
 
   const site = await prisma.site.findFirst({
     where: { link: name },
-    include: { realEstate: true, units: true },
+    include: {
+      realEstate: true,
+      units: true,
+      payments: {
+        include: {
+          paymentType: true,
+        },
+      },
+      amenities: {
+        include: { image: true },
+      },
+    },
   });
   console.log(site);
   res.status(200).json({ site });
