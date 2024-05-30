@@ -12,10 +12,16 @@ const updateSite = async (req, res) => {
     floors,
     basementCount,
     parkingLots,
+    studios,
     oneBedrooms,
     twoBedrooms,
     threeBedrooms,
     real_estate,
+    numberOfUnits,
+    buildingType,
+    apartmentSizes,
+    price,
+    deliveryTime,
     images,
   } = req.body;
 
@@ -43,11 +49,16 @@ const updateSite = async (req, res) => {
   if (floors) query.floors = floors;
   if (basementCount || basementCount == 0) query.basementCount = basementCount;
   if (parkingLots || parkingLots == 0) query.parkingLots = parkingLots;
+  if (studios || studios == 0) query.studios = studios;
   if (oneBedrooms || oneBedrooms == 0) query.oneBedrooms = oneBedrooms;
-  if (twoBedrooms) query.twoBedrooms = twoBedrooms;
-  if (threeBedrooms) query.threeBedrooms = threeBedrooms;
+  if (twoBedrooms || oneBedrooms == 0) query.twoBedrooms = twoBedrooms;
+  if (threeBedrooms || oneBedrooms == 0) query.threeBedrooms = threeBedrooms;
   if (images) query.images = images;
-
+  if (numberOfUnits) query.numberOfUnits = numberOfUnits;
+  if (buildingType) query.buildingType = buildingType;
+  if (apartmentSizes) query.apartmentSizes = apartmentSizes;
+  if (price) query.price = price;
+  if (deliveryTime) query.deliveryTime = deliveryTime;
   if (real_estate) query.realEstateId = real_estate;
 
   console.log(query);
@@ -69,8 +80,6 @@ const updateSite = async (req, res) => {
       error: true,
     });
   }
-
-  // prisma.$disconnect();
 };
 
 export default updateSite;

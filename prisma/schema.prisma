@@ -17,15 +17,18 @@ model User {
 
 model Unit {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  bathroom Int
-  bedroom Int
-  balcony Boolean
+  name String?
+  bathroom Int?
+  bedroom Int?
+  balcony Boolean?
   images String[]
-  netArea Float
-  commonArea Float
-  totalArea Float
+  netArea Float?
+  commonArea Float?
+  totalArea Float?
   // payments Payment[]
-  available Int
+  available Int?
+  total Int?
+  price String?
 
   site Site @relation(fields: [siteId], references: [id])
   siteId String @db.ObjectId
@@ -44,18 +47,20 @@ model Site {
   floors Int?
   basementCount Int?
   parkingLots String?
+  studios Int?
   oneBedrooms Int?
   twoBedrooms Int?
   threeBedrooms Int?
   numberOfUnits Int?
-  images String[] @default([])
+  buildingType String?
+  apartmentSizes String?
+  images String[]
   stage String?
   price Int?
   amenities Amenity[]
   deliveryTime String?
 
-  payments Payment[] //@relation(fields: [paymentIds], references: [id])
-  // paymentIds String[] @db.ObjectId
+  payments Payment[] 
 
   units Unit[]
   

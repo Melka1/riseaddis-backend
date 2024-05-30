@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const addUnit = async (req, res) => {
   const {
+    name,
     bathroom,
     bedroom,
     balcony,
@@ -12,6 +13,8 @@ const addUnit = async (req, res) => {
     available,
     siteId,
     images,
+    price,
+    total,
   } = req.body;
 
   console.log(req.body);
@@ -38,6 +41,7 @@ const addUnit = async (req, res) => {
   try {
     const unit = await prisma.unit.create({
       data: {
+        name,
         siteId,
         bathroom,
         bedroom,
@@ -46,6 +50,8 @@ const addUnit = async (req, res) => {
         commonArea,
         totalArea,
         payments,
+        price,
+        total,
         images: [
           ...images,
           "https://res.cloudinary.com/dchmblw88/image/upload/v1715964244/RAP_-_Logo_Design_V02-04_fy5srs.jpg",

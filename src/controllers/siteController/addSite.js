@@ -5,15 +5,20 @@ const addSite = async (req, res) => {
     name,
     description,
     location,
-    stage,
     footPrintArea,
+    builtUpArea,
     floors,
     basementCount,
+    buildingType,
     parkingLots,
+    studios,
     oneBedrooms,
     twoBedrooms,
     threeBedrooms,
+    apartmentSizes,
     realestate,
+    stage,
+    price,
     numberOfUnits,
     images,
     deliveryTime,
@@ -27,15 +32,23 @@ const addSite = async (req, res) => {
   }
 
   if (
+    !name &&
     !description &&
     !location &&
+    !footPrintArea &&
+    !builtUpArea &&
     !floors &&
+    !basementCount &&
     !parkingLots &&
+    !studios &&
     !oneBedrooms &&
     !twoBedrooms &&
     !threeBedrooms &&
-    !stage &&
     !numberOfUnits &&
+    !buildingType &&
+    !apartmentSizes &&
+    !stage &&
+    !price &&
     !deliveryTime
   ) {
     return res.status(400).json({
@@ -62,18 +75,23 @@ const addSite = async (req, res) => {
         link: name.toLowerCase().split(/\s|-/).join("-"),
         description,
         location,
-        stage,
         footPrintArea,
+        builtUpArea,
         floors,
         basementCount,
         parkingLots,
+        studios,
         oneBedrooms,
         twoBedrooms,
         threeBedrooms,
-        realEstateId: realestate,
         numberOfUnits,
-        deliveryTime,
+        buildingType,
+        apartmentSizes,
         images,
+        stage,
+        price,
+        deliveryTime,
+        realEstateId: realestate,
       },
     });
 

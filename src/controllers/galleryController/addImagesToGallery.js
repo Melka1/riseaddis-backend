@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { uploadImage } from "../../utils/uploadImage.js";
 
-export default function addImagesToGallery(req, res) {
+export default function  addImagesToGallery(req, res) {
   const { image } = req.files;
   let { name } = req.fields;
 
