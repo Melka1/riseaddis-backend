@@ -8,7 +8,7 @@ const getRealEstate = async (req, res) => {
   try {
     const realEstate = await prisma.realEstate.findFirst({
       where: { link: name },
-      include: { sites: true },
+      include: { sites: { where: { status: "active" } } },
     });
 
     if (!realEstate) {

@@ -26,7 +26,7 @@ const addSite = async (req, res) => {
 
   if (!name || !realestate) {
     return res.status(400).json({
-      message: "Name and Realesate are required",
+      message: "Name and Realestate are required",
       error: true,
     });
   }

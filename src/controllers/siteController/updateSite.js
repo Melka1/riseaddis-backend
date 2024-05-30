@@ -21,6 +21,7 @@ const updateSite = async (req, res) => {
     buildingType,
     apartmentSizes,
     price,
+    stage,
     deliveryTime,
     images,
   } = req.body;
@@ -58,6 +59,7 @@ const updateSite = async (req, res) => {
   if (buildingType) query.buildingType = buildingType;
   if (apartmentSizes) query.apartmentSizes = apartmentSizes;
   if (price) query.price = price;
+  if (stage) query.stage = stage;
   if (deliveryTime) query.deliveryTime = deliveryTime;
   if (real_estate) query.realEstateId = real_estate;
 
