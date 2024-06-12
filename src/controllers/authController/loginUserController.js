@@ -3,7 +3,8 @@ import { compare } from "bcrypt";
 import { config } from "dotenv";
 import Jwt from "jsonwebtoken";
 
-const HASH_SECRET_KEY = config(process.cwd, ".env").parsed.HASH_SECRET_KEY;
+const HASH_SECRET_KEY = config(process.cwd, "../../../.env").parsed
+  .HASH_SECRET_KEY;
 
 const loginUserController = async (req, res) => {
   const { email, password } = req.body;

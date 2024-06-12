@@ -4,7 +4,8 @@ import { config } from "dotenv";
 import Jwt from "jsonwebtoken";
 import { isEmailValid } from "../../libs/validate.js";
 
-const HASH_SECRET_KEY = config(process.cwd, ".env").parsed.HASH_SECRET_KEY;
+const HASH_SECRET_KEY = config(process.cwd, "../../../.env").parsed
+  .HASH_SECRET_KEY;
 
 const registerUserController = async (req, res) => {
   let { name, email, password } = req.body;
