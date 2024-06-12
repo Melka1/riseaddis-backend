@@ -50,7 +50,7 @@ const registerUserController = async (req, res) => {
         uid: user.id,
         iat: Date.now(),
       },
-      HASH_SECRET_KEY,
+      "riseaddis.com",
       {
         expiresIn: 60 * 60 * 24 * 30,
       }
