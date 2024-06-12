@@ -22,9 +22,19 @@ const deleteRealestate = async (req, res) => {
     });
 
     console.log(realestates);
-    return res.status(200).json({ message: "Realestate deleted successfully" });
+    return res.status(200).json({
+      message: `Realestate${
+        realestates.length > 1 ? "s" : ""
+      } deleted successfully`,
+      error: false,
+    });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Server error, please try again", error: true });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: WEBSITE_URL,
+    origin: "*",
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
   })

@@ -51,12 +51,20 @@ const updateRealestate = async (req, res) => {
 
   const prisma = new PrismaClient();
 
-  const realestate = await prisma.realEstate.update({
-    where: { id },
-    data: query,
-  });
+  try {
+    const realestate = await prisma.realEstate.update({
+      where: { id },
+      data: query,
+    });
 
-  return res.status(200).json(realestate);
+    return res.status(200).json(realestate);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      message: "Server error, please try again",
+      error: true,
+    });
+  }
 };
 
 export default updateRealestate;

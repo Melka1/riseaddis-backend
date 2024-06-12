@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { isValidObjectId } from "mongoose";
 
-export default function createPayment(req, res) {
+export default async function createPayment(req, res) {
   const { paymentTypeId, paymentList, siteIds } = req.body;
 
   if (!paymentTypeId || !paymentList || paymentList.length == 0) {
@@ -21,33 +21,32 @@ export default function createPayment(req, res) {
   const prisma = new PrismaClient();
 
   try {
-    prisma.payment
-      .create({
-        data: {
-          paymentTypeId,
-          list: paymentList,
-          siteIds,
-          sites: {
-            connect: siteIds.map((siteId) => {
-              return {
-                id: siteId,
-              };
-            }),
-          },
+    const payment = await prisma.payment.create({
+      data: {
+        paymentTypeId,
+        list: paymentList,
+        siteIds,
+        sites: {
+          connect: siteIds.map((siteId) => {
+            return {
+              id: siteId,
+            };
+          }),
         },
-      })
-      .then((payment) => {
-        return res
-          .status(200)
-          .json({ message: "Payment Created", data: payment, error: false });
-      })
-      .catch((error) => {
-        return res.status(500).json({ message: error.message, error: true });
-      })
-      .finally(() => {
-        prisma.$disconnect();
-      });
+      },
+    });
+
+    return res.status(200).json({
+      message: `Payment created successfully`,
+      data: payment,
+      error: false,
+    });
   } catch (error) {
-    return res.status(500).json({ message: error.message, error: true });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Server error, please try again", error: true });
+  } finally {
+    prisma.$disconnect();
   }
 }

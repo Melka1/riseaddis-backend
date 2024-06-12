@@ -22,7 +22,7 @@ const getAllPayments = async (_, res) => {
     });
 
     return res.status(200).json({
-      data: payments,
+       payments,
       error: false,
     });
   } catch (err) {
@@ -31,6 +31,8 @@ const getAllPayments = async (_, res) => {
       message: "Server error, please try again!",
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

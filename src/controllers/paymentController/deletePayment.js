@@ -25,9 +25,14 @@ const deletePayments = async (req, res) => {
       message: `Payment${
         paymentIds.length > 0 ? "s" : ""
       } deleted successfully`,
+      error: false,
     });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error, please try again", error: true });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

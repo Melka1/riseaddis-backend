@@ -20,15 +20,17 @@ const getRealEstate = async (req, res) => {
     }
 
     return res.status(200).json({
-      data: realEstate,
+      realEstate,
       error: false,
     });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      message: error.message,
+    console.log(error);
+    return res.status(500).json({
+      message: "Server error, please try again",
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

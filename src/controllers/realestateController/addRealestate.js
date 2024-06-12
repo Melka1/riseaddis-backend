@@ -43,16 +43,16 @@ const addRealestate = async (req, res) => {
         activeProjects: activeProjects || [],
       },
     });
-    res.status(200).json(realestate);
+    return res.status(200).json({ realestate, error: false });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err.message,
+      message: "Server error, please try again",
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
-
-  prisma.$disconnect();
 };
 
 export default addRealestate;

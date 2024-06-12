@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { isValidObjectId } from "mongoose";
 
-export default function updatePayment(req, res) {
+export default async function updatePayment(req, res) {
   const { paymentId, siteIds, paymentList, paymentTypeId } = req.body;
 
   if (!paymentId) {
@@ -48,41 +48,37 @@ export default function updatePayment(req, res) {
 
   try {
     const prisma = new PrismaClient();
-    prisma.payment
-      .update({
-        where: {
-          id: paymentId,
+    const payment = await prisma.payment.update({
+      where: {
+        id: paymentId,
+      },
+      data: {
+        paymentTypeId,
+        list: paymentList,
+        siteIds: {
+          set: siteIds,
         },
-        data: {
-          paymentTypeId,
-          list: paymentList,
-          siteIds: {
-            set: siteIds,
-          },
-          sites: {
-            connect: siteIds.map((siteId) => {
-              return {
-                id: siteId,
-              };
-            }),
-          },
+        sites: {
+          connect: siteIds.map((siteId) => {
+            return {
+              id: siteId,
+            };
+          }),
         },
-      })
-      .then((payment) => {
-        return res.status(200).json({
-          message: `Payment updated successfully`,
-          data: payment,
-          error: false,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        return res.status(500).json({ message: error.message, error: true });
-      })
-      .finally(() => {
-        prisma.$disconnect();
-      });
+      },
+    });
+
+    return res.status(200).json({
+      message: `Payment updated successfully`,
+      payment,
+      error: false,
+    });
   } catch (error) {
-    return res.status(500).json({ message: error.message, error: true });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Server error, please try again", error: true });
+  } finally {
+    prisma.$disconnect();
   }
 }
