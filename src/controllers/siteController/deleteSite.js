@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 const deleteSite = async (req, res) => {
-  const { id } = req.body;
+  const { ids } = req.body;
+  console.log(ids);
 
-  if (!id) {
+  if (!ids || ids?.length === 0) {
     return res.json({
       message: "Missing required fields",
       error: true,
@@ -12,10 +13,19 @@ const deleteSite = async (req, res) => {
   const prisma = new PrismaClient();
 
   try {
-    const site = await prisma.site.delete({ where: { id } });
-    return res.status(200).json({ message: "Site deleted", data: site });
+    const site = await prisma.site.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    console.log(site);
+    return res.status(200).json({ message: "Site deleted successfully" });
   } catch (error) {
-    return res.status(500).json({ message: error.message, error: true });
+    console.log(error.message);
+    return res.status(500).json({ message: "Server error, please try again!" });
   }
 };
 

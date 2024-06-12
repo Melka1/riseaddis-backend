@@ -9,6 +9,7 @@ const updateRealestate = async (req, res) => {
     sisterCompanies,
     activeProjects,
     previousProjects,
+    status,
   } = req.body;
 
   if (!id) {
@@ -24,7 +25,8 @@ const updateRealestate = async (req, res) => {
     !background &&
     (!sisterCompanies || sisterCompanies?.length == 0) &&
     (!activeProjects || activeProjects?.length == 0) &&
-    (!previousProjects || previousProjects?.length == 0)
+    (!previousProjects || previousProjects?.length == 0) &&
+    !status
   ) {
     return res.status(400).json({
       message: "Missing required fields!",
@@ -45,6 +47,7 @@ const updateRealestate = async (req, res) => {
   if (sisterCompanies) query.sisterCompanies = sisterCompanies;
   if (activeProjects) query.activeProjects = activeProjects;
   if (previousProjects) query.previousProjects = previousProjects;
+  if (status) query.status = status;
 
   const prisma = new PrismaClient();
 

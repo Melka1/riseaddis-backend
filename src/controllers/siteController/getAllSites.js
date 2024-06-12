@@ -1,35 +1,31 @@
 import { PrismaClient } from "@prisma/client";
 
-const getSites = async (_, res) => {
+const getAllSites = async (_, res) => {
   const prisma = new PrismaClient();
 
   try {
     const sites = await prisma.site.findMany({
-      where: { status: "active" },
       include: {
         realEstate: {
           select: {
             name: true,
-            link: true,
-            images: true,
+            id: true,
           },
         },
       },
     });
-    console.log(sites);
+
     return res.status(200).json({
-      sites,
+      data: sites,
       error: false,
     });
-  } catch (e) {
-    console.log(e);
-    return res.status(500).json({
-      message: "Server error. please try again!",
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      message: error.message,
       error: true,
     });
-  } finally {
-    prisma.$disconnect();
   }
 };
 
-export default getSites;
+export default getAllSites;

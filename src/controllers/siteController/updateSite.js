@@ -4,6 +4,7 @@ const updateSite = async (req, res) => {
   const {
     siteId,
     name,
+    realEstateId,
     description,
     status,
     location,
@@ -16,7 +17,6 @@ const updateSite = async (req, res) => {
     oneBedrooms,
     twoBedrooms,
     threeBedrooms,
-    real_estate,
     numberOfUnits,
     buildingType,
     apartmentSizes,
@@ -61,7 +61,7 @@ const updateSite = async (req, res) => {
   if (price) query.price = price;
   if (stage) query.stage = stage;
   if (deliveryTime) query.deliveryTime = deliveryTime;
-  if (real_estate) query.realEstateId = real_estate;
+  if (realEstateId) query.realEstateId = realEstateId;
 
   console.log(query);
 
@@ -78,7 +78,7 @@ const updateSite = async (req, res) => {
   } catch (e) {
     console.log(e.message);
     return res.status(500).json({
-      message: e.message,
+      message: "Server error, please try again!",
       error: true,
     });
   }

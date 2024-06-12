@@ -10,6 +10,8 @@ const addRealestate = async (req, res) => {
     activeProjects,
   } = req.body;
 
+  console.log(req.body);
+
   if (!name) {
     return res.status(400).json({
       message: "Name is required",
@@ -19,17 +21,17 @@ const addRealestate = async (req, res) => {
 
   const prisma = new PrismaClient();
 
-  let exists = await prisma.realEstate.findFirst({ where: { name } });
-
-  if (exists) {
-    return res.status(400).json({
-      status: 400,
-      message: "Realestate already exists",
-      error: true,
-    });
-  }
-
   try {
+    let exists = await prisma.realEstate.findFirst({ where: { name } });
+
+    if (exists) {
+      return res.status(400).json({
+        status: 400,
+        message: "Realestate already exists",
+        error: true,
+      });
+    }
+
     let realestate = await prisma.realEstate.create({
       data: {
         name,

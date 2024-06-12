@@ -19,16 +19,15 @@ const addUnit = async (req, res) => {
 
   console.log(req.body);
 
+  if (!name) {
+    return res.status(400).json({
+      message: "Name is required",
+      error: true,
+    });
+  }
+
   if (
-    !siteId ||
-    !bathroom
-    // !bedroom ||
-    // !balcony ||
-    // !netArea ||
-    // !commonArea ||
-    // !totalArea ||
-    // !payments ||
-    // !available
+    !siteId 
   ) {
     return res.status(400).json({
       message: "Please provide required fields",
@@ -52,10 +51,7 @@ const addUnit = async (req, res) => {
         payments,
         price,
         total,
-        images: [
-          ...images,
-          "https://res.cloudinary.com/dchmblw88/image/upload/v1715964244/RAP_-_Logo_Design_V02-04_fy5srs.jpg",
-        ],
+        images,
         available,
       },
     });
@@ -68,7 +64,7 @@ const addUnit = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message: error.message,
+      message: "Server error, please try again!",
       error: true,
     });
   } finally {

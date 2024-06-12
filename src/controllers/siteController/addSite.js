@@ -16,7 +16,7 @@ const addSite = async (req, res) => {
     twoBedrooms,
     threeBedrooms,
     apartmentSizes,
-    realestate,
+    realEstateId,
     stage,
     price,
     numberOfUnits,
@@ -24,7 +24,7 @@ const addSite = async (req, res) => {
     deliveryTime,
   } = req.body;
 
-  if (!name || !realestate) {
+  if (!name || !realEstateId) {
     return res.status(400).json({
       message: "Name and Realestate are required",
       error: true,
@@ -72,6 +72,7 @@ const addSite = async (req, res) => {
     let site = await prisma.site.create({
       data: {
         name,
+        realEstateId,
         link: name.toLowerCase().split(/\s|-/).join("-"),
         description,
         location,
@@ -91,7 +92,6 @@ const addSite = async (req, res) => {
         stage,
         price,
         deliveryTime,
-        realEstateId: realestate,
       },
     });
 

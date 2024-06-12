@@ -5,14 +5,14 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  // output   = "./generated/client"
 }
 
 model User {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
   name    String
-  role Role
+  email   String   @unique
+  password String
+  role Role? @default(user)
 }
 
 model Unit {
@@ -60,7 +60,8 @@ model Site {
   amenities Amenity[]
   deliveryTime String?
 
-  payments Payment[] 
+  payments Payment[] @relation(fields: [paymentIds], references: [id])
+  paymentIds String[] @db.ObjectId 
 
   units Unit[]
   
@@ -111,8 +112,8 @@ model Payment {
 
   list PaymentList[]
 
-  site Site @relation(fields: [siteId], references: [id])
-  siteId String @db.ObjectId
+  sites Site[] @relation(fields: [siteIds], references: [id])
+  siteIds String[] @db.ObjectId
 }
 
 model PaymentType {
@@ -123,8 +124,8 @@ model PaymentType {
 }
 
 enum Role {
-  ADMIN
-  USER
+  admin
+  user
 }
 
 enum Status {
@@ -136,4 +137,22 @@ enum Status {
 type PaymentList {
   name String
   value String
+}
+
+model Article {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  link String
+  paragraphs String[]
+  imageUrl String?
+
+  status ArticleStatus @default(draft)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ArticleStatus {
+  draft
+  published
 }

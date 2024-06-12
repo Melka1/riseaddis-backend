@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-const deleteRealestate = async (req, res) => {
+const deleteUnit = async (req, res) => {
   const { ids } = req.body;
   console.log(ids);
 
@@ -13,7 +13,7 @@ const deleteRealestate = async (req, res) => {
   const prisma = new PrismaClient();
 
   try {
-    const realestates = await prisma.realEstate.deleteMany({
+    const unit = await prisma.unit.deleteMany({
       where: {
         id: {
           in: ids,
@@ -21,11 +21,12 @@ const deleteRealestate = async (req, res) => {
       },
     });
 
-    console.log(realestates);
+    console.log(unit);
     return res.status(200).json({ message: "Realestate deleted successfully" });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.log(error.message);
+    return res.status(500).json({ message: "Server error, please try again!" });
   }
 };
 
-export default deleteRealestate;
+export default deleteUnit;
