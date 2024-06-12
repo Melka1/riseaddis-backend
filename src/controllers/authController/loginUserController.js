@@ -40,6 +40,8 @@ const loginUserController = async (req, res) => {
       });
     }
 
+    console.log(HASH_SECRET_KEY);
+
     const token = Jwt.sign(
       {
         from: "Rise Addis Properties",
