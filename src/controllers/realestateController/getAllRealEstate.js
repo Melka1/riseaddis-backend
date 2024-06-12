@@ -7,7 +7,7 @@ const getAllRealEstate = async (_, res) => {
     const realEstates = await prisma.realEstate.findMany({});
 
     return res.status(200).json({
-      data: realEstates,
+      realEstates,
       error: false,
     });
   } catch (error) {
