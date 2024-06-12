@@ -22,10 +22,16 @@ const deleteSite = async (req, res) => {
     });
 
     console.log(site);
-    return res.status(200).json({ message: "Site deleted successfully" });
+    return res
+      .status(200)
+      .json({ message: "Site deleted successfully", error: false });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ message: "Server error, please try again!" });
+    return res
+      .status(500)
+      .json({ message: "Server error, please try again!", error: true });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

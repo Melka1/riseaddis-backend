@@ -95,11 +95,11 @@ const addSite = async (req, res) => {
       },
     });
 
-    return res.status(200).json(site);
+    return res.status(200).json({ site, error: false });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: err.message,
+      message: "Server error, please try again",
       error: true,
     });
   } finally {

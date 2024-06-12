@@ -22,9 +22,9 @@ const getSite = async (req, res) => {
       },
     });
     console.log(site);
-    return res.status(200).json({ site });
-  } catch (e) {
-    console.log(e);
+    return res.status(200).json({ site, error: false });
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: "Server error, please try again!",
       error: true,

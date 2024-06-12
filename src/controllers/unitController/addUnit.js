@@ -26,12 +26,10 @@ const addUnit = async (req, res) => {
     });
   }
 
-  if (
-    !siteId 
-  ) {
+  if (!siteId) {
     return res.status(400).json({
       message: "Please provide required fields",
-      error: false,
+      error: true,
     });
   }
 

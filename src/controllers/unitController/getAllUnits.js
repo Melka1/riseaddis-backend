@@ -4,7 +4,7 @@ const getAllUnits = async (_, res) => {
   const prisma = new PrismaClient();
 
   try {
-    const units = await prisma.unit.findMany({
+    const unitList = await prisma.unit.findMany({
       include: {
         site: {
           include: {
@@ -18,7 +18,7 @@ const getAllUnits = async (_, res) => {
       },
     });
 
-    let unitList = units.map((unit) => {
+    let units = unitList.map((unit) => {
       return {
         id: unit.id,
         name: unit.name,
@@ -45,15 +45,17 @@ const getAllUnits = async (_, res) => {
     });
 
     return res.status(200).json({
-      data: unitList,
+      units,
       error: false,
     });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({
-      message: error.message,
+    return res.status(500).json({
+      message: "Server error, please try again",
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

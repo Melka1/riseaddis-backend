@@ -21,8 +21,8 @@ const getSites = async (_, res) => {
       sites,
       error: false,
     });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: "Server error. please try again!",
       error: true,

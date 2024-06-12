@@ -16,15 +16,17 @@ const getAllSites = async (_, res) => {
     });
 
     return res.status(200).json({
-      data: sites,
+      sites,
       error: false,
     });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
-      message: error.message,
+      message: "Server error, please try again",
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

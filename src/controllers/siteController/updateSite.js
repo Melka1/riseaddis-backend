@@ -26,8 +26,6 @@ const updateSite = async (req, res) => {
     images,
   } = req.body;
 
-  console.log(req.body, "body");
-
   const prisma = new PrismaClient();
 
   let exists = await prisma.site.findFirst({ where: { id: siteId } });
@@ -72,7 +70,7 @@ const updateSite = async (req, res) => {
     });
 
     return res.status(200).json({
-      status: 200,
+      error: false,
       updatedSite,
     });
   } catch (e) {
@@ -81,6 +79,8 @@ const updateSite = async (req, res) => {
       message: "Server error, please try again!",
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
 };
 
