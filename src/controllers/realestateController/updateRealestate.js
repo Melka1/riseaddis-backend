@@ -9,6 +9,7 @@ const updateRealestate = async (req, res) => {
     sisterCompanies,
     activeProjects,
     previousProjects,
+    currency,
     status,
   } = req.body;
 
@@ -26,6 +27,7 @@ const updateRealestate = async (req, res) => {
     (!sisterCompanies || sisterCompanies?.length == 0) &&
     (!activeProjects || activeProjects?.length == 0) &&
     (!previousProjects || previousProjects?.length == 0) &&
+    !currency &&
     !status
   ) {
     return res.status(400).json({
@@ -47,6 +49,7 @@ const updateRealestate = async (req, res) => {
   if (sisterCompanies) query.sisterCompanies = sisterCompanies;
   if (activeProjects) query.activeProjects = activeProjects;
   if (previousProjects) query.previousProjects = previousProjects;
+  if (currency) query.currency = currency;
   if (status) query.status = status;
 
   const prisma = new PrismaClient();

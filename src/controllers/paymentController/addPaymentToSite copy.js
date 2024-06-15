@@ -11,19 +11,19 @@ export default function addPaymentToSite(req, res) {
     });
   }
 
-  if(!isValidObjectId(paymentTypeId)){
+  if (!isValidObjectId(paymentTypeId)) {
     return res.status(400).json({
       message: "Invalid payment type id",
       error: true,
     });
   }
 
-  if(!isValidObjectId(siteId)){
-    return res.status(400).json({
-      message: "Invalid site id",
-      error: true,
-    });
-  }
+  // if(!isValidObjectId(siteId)){
+  //   return res.status(400).json({
+  //     message: "Invalid site id",
+  //     error: true,
+  //   });
+  // }
 
   const prisma = new PrismaClient();
 
@@ -33,7 +33,7 @@ export default function addPaymentToSite(req, res) {
         data: {
           paymentTypeId,
           list: paymentList,
-          siteId,
+          // siteId,
         },
       })
       .then((payment) => {

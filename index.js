@@ -6,11 +6,11 @@ import unitRoute from "./src/routes/unitRoute.js";
 import siteRoute from "./src/routes/siteRoute.js";
 import realestateRoute from "./src/routes/realestateRoute.js";
 import galleryRoute from "./src/routes/galleryRoute.js";
-// import amenityRoute from "./src/routes/amenityRoute.js";
+import amenityRoute from "./src/routes/amenityRoute.js";
 import paymentRoute from "./src/routes/paymentRoute.js";
 import paymentTypeRoute from "./src/routes/paymentTypeRoute.js";
 import authRoute from "./src/routes/authRoute.js";
-// import articleRoute from "./src/routes/articleRoute.js";
+import articleRoute from "./src/routes/articleRoute.js";
 import userRoute from "./src/routes/userRoute.js";
 
 const { WEBSITE_URL, PORT } = dotenv.config(process.cwd, ".env").parsed;
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "*",
-    credentials: true, //access-control-allow-credentials:true
+    credentials: true,
     optionSuccessStatus: 200,
   })
 );
@@ -29,14 +29,14 @@ app.use("/api/unit", unitRoute);
 app.use("/api/site", siteRoute);
 app.use("/api/realestate", realestateRoute);
 app.use("/api/gallery", galleryRoute);
-// app.use("/api/amenity", amenityRoute);
+app.use("/api/amenity", amenityRoute);
 app.use("/api/payment", paymentRoute);
 app.use("/api/paymentType", paymentTypeRoute);
 app.use("/api/auth", authRoute);
-// app.use("/api/article", articleRoute);
+app.use("/api/article", articleRoute);
 app.use("/api/user", userRoute);
 
-app.get("/api", (req, res) => {
+app.get("/api", (_, res) => {
   res.json({
     message:
       "Hello, this is riseaddis, your most trusted realestate properties site provider",

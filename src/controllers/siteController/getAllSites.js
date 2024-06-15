@@ -10,6 +10,7 @@ const getAllSites = async (_, res) => {
           select: {
             name: true,
             id: true,
+            currency: true,
           },
         },
       },

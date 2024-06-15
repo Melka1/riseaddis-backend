@@ -9,6 +9,11 @@ const getSiteList = async (req, res) => {
       select: {
         id: true,
         name: true,
+        realEstate: {
+          select: {
+            currency: true,
+          },
+        },
       },
     });
     console.log(sites);

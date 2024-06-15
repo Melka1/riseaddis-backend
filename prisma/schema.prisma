@@ -80,6 +80,7 @@ model RealEstate {
   sisterCompanies String[]
   previousProjects String[]
   activeProjects String[]
+  currency Currency @default(etb)
 
   sites Site[]
 
@@ -155,4 +156,11 @@ model Article {
 enum ArticleStatus {
   draft
   published
+}
+
+enum Currency {
+  etb
+  usd
+  euro
+  gbp
 }

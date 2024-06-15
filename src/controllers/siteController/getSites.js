@@ -12,6 +12,7 @@ const getSites = async (_, res) => {
             name: true,
             link: true,
             images: true,
+            currency: true,
           },
         },
       },

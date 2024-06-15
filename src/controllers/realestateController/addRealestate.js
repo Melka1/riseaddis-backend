@@ -8,6 +8,7 @@ const addRealestate = async (req, res) => {
     sisterCompanies,
     previousProjects,
     activeProjects,
+    currency,
   } = req.body;
 
   console.log(req.body);
@@ -41,6 +42,7 @@ const addRealestate = async (req, res) => {
         sisterCompanies: sisterCompanies || [],
         previousProjects: previousProjects || [],
         activeProjects: activeProjects || [],
+        currency,
       },
     });
     return res.status(200).json({ realestate, error: false });

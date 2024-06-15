@@ -2,12 +2,13 @@ import { PrismaClient } from "@prisma/client";
 
 const getSite = async (req, res) => {
   const { name } = req.params;
+  const { realestate } = req.query;
 
   const prisma = new PrismaClient();
 
   try {
     const site = await prisma.site.findFirst({
-      where: { link: name },
+      where: { link: name, realEstate: { link: realestate } },
       include: {
         realEstate: true,
         units: true,

@@ -9,6 +9,7 @@ const getRealEstateList = async (_, res) => {
       select: {
         id: true,
         name: true,
+        currency: true,
       },
     });
     console.log(realEstates);
