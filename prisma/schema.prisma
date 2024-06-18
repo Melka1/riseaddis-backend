@@ -59,6 +59,7 @@ model Site {
   price Int?
   amenities Amenity[]
   deliveryTime String?
+  featured Boolean @default(false)
 
   payments Payment[] @relation(fields: [paymentIds], references: [id])
   paymentIds String[] @db.ObjectId 
