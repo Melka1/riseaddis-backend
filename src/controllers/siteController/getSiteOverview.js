@@ -7,6 +7,7 @@ const getSiteOverview = async (_, res) => {
     prisma = new PrismaClient();
     const sites = await prisma.site.findMany({
       select: {
+        id: true,
         status: true,
         featured: true,
         name: true,

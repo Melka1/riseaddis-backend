@@ -23,6 +23,7 @@ const updateSite = async (req, res) => {
     price,
     stage,
     deliveryTime,
+    featured,
     images,
   } = req.body;
 
@@ -62,6 +63,7 @@ const updateSite = async (req, res) => {
     if (price) query.price = price;
     if (stage) query.stage = stage;
     if (deliveryTime) query.deliveryTime = deliveryTime;
+    if (featured || typeof featured == "boolean") query.featured = featured;
     if (realEstateId) query.realEstateId = realEstateId;
 
     console.log(query);
