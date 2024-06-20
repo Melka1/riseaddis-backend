@@ -20,9 +20,10 @@ const addRealestate = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     let exists = await prisma.realEstate.findFirst({ where: { name } });
 
     if (exists) {

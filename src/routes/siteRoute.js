@@ -9,9 +9,11 @@ import getSiteList from "../controllers/siteController/getSiteList.js";
 import getAllSites from "../controllers/siteController/getAllSites.js";
 
 import adminAuthentication from "../middlewares/AdminAuthentication.js";
+import getSiteOverview from "../controllers/siteController/getSiteOverview.js";
 
 const siteRoute = Router();
 
+siteRoute.get("/overview", adminAuthentication, getSiteOverview);
 siteRoute.get("/all", adminAuthentication, getAllSites);
 siteRoute.get("/list", getSiteList);
 siteRoute.get("/:name", getSite);

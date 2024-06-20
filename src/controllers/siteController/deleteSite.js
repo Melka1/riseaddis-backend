@@ -10,9 +10,10 @@ const deleteSite = async (req, res) => {
       error: true,
     });
   }
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const site = await prisma.site.deleteMany({
       where: {
         id: {

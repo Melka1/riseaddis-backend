@@ -1,9 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 
 const getAllAmenities = async (req, res) => {
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
+
     const amenities = await prisma.amenity.findMany({
       include: {
         image: true,

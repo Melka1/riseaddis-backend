@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 const getArticles = async (req, res) => {
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const articles = await prisma.article.findMany({
       where: { status: "published" },
     });

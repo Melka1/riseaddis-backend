@@ -18,8 +18,6 @@ const updateUnit = async (req, res) => {
     status,
   } = req.body;
 
-  console.log(req.body);
-
   if (
     !siteId &&
     !bathroom &&
@@ -40,36 +38,37 @@ const updateUnit = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
-
-  let exists = await prisma.unit.findFirst({ where: { id: unitId } });
-
-  if (!exists) {
-    return res.status(400).json({
-      message: "Unit not found",
-      error: true,
-    });
-  }
-
-  let query = {};
-
-  if (name) query.name = name;
-  if (siteId) query.siteId = siteId;
-  if (bedroom) query.bedroom = bedroom;
-  if (bathroom) query.bathroom = bathroom;
-  if (balcony) query.balcony = balcony;
-  if (netArea) query.netArea = netArea;
-  if (commonArea) query.commonArea = commonArea;
-  if (totalArea) query.totalArea = totalArea;
-  if (available) query.available = available;
-  if (total) query.total = total;
-  if (price) query.price = price;
-  if (images) query.images = images;
-  if (status) query.status = status;
-
-  console.log(query);
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
+    let exists = await prisma.unit.findFirst({ where: { id: unitId } });
+
+    if (!exists) {
+      return res.status(400).json({
+        message: "Unit not found",
+        error: true,
+      });
+    }
+
+    let query = {};
+
+    if (name) query.name = name;
+    if (siteId) query.siteId = siteId;
+    if (bedroom) query.bedroom = bedroom;
+    if (bathroom) query.bathroom = bathroom;
+    if (balcony) query.balcony = balcony;
+    if (netArea) query.netArea = netArea;
+    if (commonArea) query.commonArea = commonArea;
+    if (totalArea) query.totalArea = totalArea;
+    if (available) query.available = available;
+    if (total) query.total = total;
+    if (price) query.price = price;
+    if (images) query.images = images;
+    if (status) query.status = status;
+
+    console.log(query);
+
     const updatedUnit = await prisma.unit.update({
       where: { id: unitId },
       data: query,

@@ -1,18 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 
-const getUnits = async (_, res) => {
+const getUnitOverview = async (_, res) => {
   let prisma;
 
   try {
     prisma = new PrismaClient();
+
     const units = await prisma.unit.findMany({
-      include: { site: { include: { realEstate: true } } },
+      select: {
+        status: true,
+      },
     });
-    console.log(units);
-    res.status(200).json({ units, error: false });
+
+    return res.status(200).json({
+      units,
+      error: false,
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       message: "Server error, please try again!",
       error: true,
     });
@@ -21,4 +27,4 @@ const getUnits = async (_, res) => {
   }
 };
 
-export default getUnits;
+export default getUnitOverview;

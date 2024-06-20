@@ -9,9 +9,10 @@ const deleteUnit = async (req, res) => {
       error: true,
     });
   }
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const unit = await prisma.unit.deleteMany({
       where: {
         id: {

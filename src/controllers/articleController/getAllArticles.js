@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 const getAllArticles = async (_, res) => {
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const articles = await prisma.article.findMany({});
 
     return res.status(200).json({

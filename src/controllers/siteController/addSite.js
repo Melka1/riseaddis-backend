@@ -57,18 +57,20 @@ const addSite = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
-
-  let exists = await prisma.site.findFirst({ where: { name } });
-
-  if (exists) {
-    return res.status(400).json({
-      message: "Site already exists",
-      error: true,
-    });
-  }
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
+
+    let exists = await prisma.site.findFirst({ where: { name } });
+
+    if (exists) {
+      return res.status(400).json({
+        message: "Site already exists",
+        error: true,
+      });
+    }
+
     let site = await prisma.site.create({
       data: {
         name,

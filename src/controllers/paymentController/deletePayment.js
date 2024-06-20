@@ -9,9 +9,10 @@ const deletePayments = async (req, res) => {
       error: true,
     });
   }
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const payments = await prisma.payment.deleteMany({
       where: {
         id: {

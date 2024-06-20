@@ -46,8 +46,10 @@ export default async function updatePayment(req, res) {
     });
   }
 
+  let prisma;
+
   try {
-    const prisma = new PrismaClient();
+    prisma = new PrismaClient();
     const payment = await prisma.payment.update({
       where: {
         id: paymentId,

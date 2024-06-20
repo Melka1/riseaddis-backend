@@ -52,9 +52,10 @@ const updateRealestate = async (req, res) => {
   if (currency) query.currency = currency;
   if (status) query.status = status;
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const realestate = await prisma.realEstate.update({
       where: { id },
       data: query,
@@ -67,6 +68,8 @@ const updateRealestate = async (req, res) => {
       message: "Server error, please try again",
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
 };
 

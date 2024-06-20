@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 const getAllUnits = async (_, res) => {
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const unitList = await prisma.unit.findMany({
       include: {
         site: {

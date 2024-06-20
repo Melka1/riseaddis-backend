@@ -10,9 +10,11 @@ export default async function addAmenityToSite(req, res) {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
+
     prisma.amenity
       .create({
         data: {

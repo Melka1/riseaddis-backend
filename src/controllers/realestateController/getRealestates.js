@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 const getRealEstates = async (_, res) => {
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const realEstates = await prisma.realEstate.findMany({
       where: { status: "active" },
       include: {

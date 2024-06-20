@@ -4,9 +4,10 @@ const getSite = async (req, res) => {
   const { name } = req.params;
   const { realestate } = req.query;
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const site = await prisma.site.findFirst({
       where: { link: name, realEstate: { link: realestate } },
       include: {

@@ -10,9 +10,10 @@ const deleteRealestate = async (req, res) => {
       error: true,
     });
   }
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const realestates = await prisma.realEstate.deleteMany({
       where: {
         id: {

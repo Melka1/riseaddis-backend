@@ -18,9 +18,10 @@ export default async function createPayment(req, res) {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const payment = await prisma.payment.create({
       data: {
         paymentTypeId,

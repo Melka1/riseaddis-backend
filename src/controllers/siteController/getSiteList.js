@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 const getSiteList = async (req, res) => {
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const sites = await prisma.site.findMany({
       where: { status: "active" },
       select: {

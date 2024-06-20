@@ -26,44 +26,46 @@ const updateSite = async (req, res) => {
     images,
   } = req.body;
 
-  const prisma = new PrismaClient();
-
-  let exists = await prisma.site.findFirst({ where: { id: siteId } });
-
-  if (!exists) {
-    return res.status(400).json({
-      message: "Site not found",
-      error: true,
-    });
-  }
-
-  let query = {};
-
-  if (name) query.name = name;
-  if (description) query.description = description;
-  if (status) query.status = status;
-  if (location) query.location = location;
-  if (footPrintArea) query.footPrintArea = footPrintArea;
-  if (builtUpArea) query.builtUpArea = builtUpArea;
-  if (floors) query.floors = floors;
-  if (basementCount || basementCount == 0) query.basementCount = basementCount;
-  if (parkingLots || parkingLots == 0) query.parkingLots = parkingLots;
-  if (studios || studios == 0) query.studios = studios;
-  if (oneBedrooms || oneBedrooms == 0) query.oneBedrooms = oneBedrooms;
-  if (twoBedrooms || oneBedrooms == 0) query.twoBedrooms = twoBedrooms;
-  if (threeBedrooms || oneBedrooms == 0) query.threeBedrooms = threeBedrooms;
-  if (images) query.images = images;
-  if (numberOfUnits) query.numberOfUnits = numberOfUnits;
-  if (buildingType) query.buildingType = buildingType;
-  if (apartmentSizes) query.apartmentSizes = apartmentSizes;
-  if (price) query.price = price;
-  if (stage) query.stage = stage;
-  if (deliveryTime) query.deliveryTime = deliveryTime;
-  if (realEstateId) query.realEstateId = realEstateId;
-
-  console.log(query);
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
+    let exists = await prisma.site.findFirst({ where: { id: siteId } });
+
+    if (!exists) {
+      return res.status(400).json({
+        message: "Site not found",
+        error: true,
+      });
+    }
+
+    let query = {};
+
+    if (name) query.name = name;
+    if (description) query.description = description;
+    if (status) query.status = status;
+    if (location) query.location = location;
+    if (footPrintArea) query.footPrintArea = footPrintArea;
+    if (builtUpArea) query.builtUpArea = builtUpArea;
+    if (floors) query.floors = floors;
+    if (basementCount || basementCount == 0)
+      query.basementCount = basementCount;
+    if (parkingLots || parkingLots == 0) query.parkingLots = parkingLots;
+    if (studios || studios == 0) query.studios = studios;
+    if (oneBedrooms || oneBedrooms == 0) query.oneBedrooms = oneBedrooms;
+    if (twoBedrooms || oneBedrooms == 0) query.twoBedrooms = twoBedrooms;
+    if (threeBedrooms || oneBedrooms == 0) query.threeBedrooms = threeBedrooms;
+    if (images) query.images = images;
+    if (numberOfUnits) query.numberOfUnits = numberOfUnits;
+    if (buildingType) query.buildingType = buildingType;
+    if (apartmentSizes) query.apartmentSizes = apartmentSizes;
+    if (price) query.price = price;
+    if (stage) query.stage = stage;
+    if (deliveryTime) query.deliveryTime = deliveryTime;
+    if (realEstateId) query.realEstateId = realEstateId;
+
+    console.log(query);
+
     const updatedSite = await prisma.site.update({
       where: { id: siteId },
       data: query,

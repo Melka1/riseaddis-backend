@@ -4,9 +4,6 @@ import { config } from "dotenv";
 import Jwt from "jsonwebtoken";
 import { isEmailValid } from "../../libs/validate.js";
 
-const HASH_SECRET_KEY = config(process.cwd, "../../../.env").parsed
-  .HASH_SECRET_KEY;
-
 const registerUserController = async (req, res) => {
   let { name, email, password } = req.body;
 
@@ -24,9 +21,10 @@ const registerUserController = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     let exists = await prisma.user.findFirst({ where: { email } });
 
     if (exists) {

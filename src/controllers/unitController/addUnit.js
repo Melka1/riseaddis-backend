@@ -17,8 +17,6 @@ const addUnit = async (req, res) => {
     total,
   } = req.body;
 
-  console.log(req.body);
-
   if (!name) {
     return res.status(400).json({
       message: "Name is required",
@@ -33,9 +31,10 @@ const addUnit = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const unit = await prisma.unit.create({
       data: {
         name,

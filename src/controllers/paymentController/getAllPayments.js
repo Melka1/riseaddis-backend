@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 const getAllPayments = async (_, res) => {
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     const payments = await prisma.payment.findMany({
       include: {
         paymentType: {

@@ -22,9 +22,10 @@ const updateArticle = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     let query = {};
 
     if (title) query.title = title;

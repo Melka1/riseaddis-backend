@@ -17,9 +17,11 @@ const addArticle = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
+
     prisma.article
       .create({
         data: {

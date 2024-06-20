@@ -33,9 +33,10 @@ const userAuthentication = (req, res, next) => {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
     prisma.user.findUnique({ where: { id: uid } }).then((user) => {
       if (!user) {
         return res.status(404).json({

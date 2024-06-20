@@ -8,9 +8,11 @@ import getRealEstate from "../controllers/realestateController/getRealestate.js"
 import getAllRealEstate from "../controllers/realestateController/getAllRealEstate.js";
 import getRealEstateList from "../controllers/realestateController/getRealEstateList.js";
 import adminAuthentication from "../middlewares/AdminAuthentication.js";
+import getRealestateOverview from "../controllers/realestateController/getRealestateOverview.js";
 
 const realestateRoute = Router();
 
+realestateRoute.get("/overview", adminAuthentication, getRealestateOverview);
 realestateRoute.get("/all", adminAuthentication, getAllRealEstate);
 realestateRoute.get("/list", getRealEstateList);
 realestateRoute.get("/:name", getRealEstate);

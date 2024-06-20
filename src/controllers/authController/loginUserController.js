@@ -16,9 +16,11 @@ const loginUserController = async (req, res) => {
     });
   }
 
-  const prisma = new PrismaClient();
+  let prisma;
 
   try {
+    prisma = new PrismaClient();
+
     const user = await prisma.user.findUnique({
       where: {
         email,
