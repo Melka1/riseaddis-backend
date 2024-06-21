@@ -1,52 +1,37 @@
 import { PrismaClient } from "@prisma/client";
-import { uploadImage } from "../../utils/uploadImage.js";
 
-export default function  addImagesToGallery(req, res) {
-  const { image } = req.files;
-  let { name } = req.fields;
+export default async function addImagesToGallery(req, res) {
+  let { name, image } = req.body;
 
   if (!image) {
     return res.status(400).json({
-      message: "No image was uploaded",
+      message: "Missing required fields",
       error: true,
     });
   }
 
-  let images = [];
-
-  if (image.length) {
-    images = [...image];
-  } else {
-    images = [image];
-  }
-
+  let prisma;
   try {
-    const prisma = new PrismaClient();
+    prisma = new PrismaClient();
 
-    uploadImage(images).then((data) => {
-      let imageList = data.map((image) => ({
+    const imageUploaded = await prisma.imageGallery.create({
+      data: {
         name,
         imageUrl: image,
-      }));
-      prisma.imageGallery
-        .createMany({
-          data: imageList,
-        })
-        .then((resp) => {
-          return res.status(200).json({
-            message: "Images uploaded successfully",
-            error: false,
-            data: resp,
-          });
-        })
-        .finally(() => {
-          prisma.$disconnect();
-        });
+      },
+    });
+
+    return res.status(200).json({
+      message: "Image uploaded successfully",
+      error: false,
+      imageUploaded,
     });
   } catch (err) {
     return res.status(500).json({
       message: err.message,
       error: true,
     });
+  } finally {
+    prisma.$disconnect();
   }
 }

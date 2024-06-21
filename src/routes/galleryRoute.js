@@ -1,16 +1,11 @@
 import { Router } from "express";
+
 import addImagesToGallery from "../controllers/galleryController/addImagesToGallery.js";
-import ExpressFormidable from "express-formidable";
+import getImages from "../controllers/galleryController/getImages.js";
 
 const galleryRoute = Router();
 
-// galleryRoute.get("/", addImagesToGallery);
-galleryRoute.post(
-  "/",
-  ExpressFormidable({
-    multiples: true,
-  }),
-  addImagesToGallery
-);
+galleryRoute.get("/:type", getImages);
+galleryRoute.post("/", addImagesToGallery);
 
 export default galleryRoute;
