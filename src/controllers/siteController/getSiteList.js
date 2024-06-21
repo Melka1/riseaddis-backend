@@ -13,6 +13,7 @@ const getSiteList = async (req, res) => {
         realEstate: {
           select: {
             currency: true,
+            name: true,
           },
         },
       },
