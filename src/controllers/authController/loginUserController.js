@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import { compare } from "bcrypt";
 import { config } from "dotenv";
 import Jwt from "jsonwebtoken";
+import { prisma } from "../../../prisma/main.js";
 
 const HASH_SECRET_KEY = config(process.cwd, "../../../.env").parsed
   .HASH_SECRET_KEY;
@@ -16,11 +16,7 @@ const loginUserController = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     const user = await prisma.user.findUnique({
       where: {
         email,

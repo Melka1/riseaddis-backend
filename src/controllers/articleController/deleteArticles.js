@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const deleteArticles = async (req, res) => {
   const { articleIds } = req.body;
@@ -10,11 +10,7 @@ const deleteArticles = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     prisma.article
       .deleteMany({
         where: {

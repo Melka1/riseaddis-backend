@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const addSite = async (req, res) => {
   const {
@@ -57,11 +57,7 @@ const addSite = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     let exists = await prisma.site.findFirst({ where: { name } });
 
     if (exists) {
@@ -98,8 +94,8 @@ const addSite = async (req, res) => {
     });
 
     return res.status(200).json({ site, error: false });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: "Server error, please try again",
       error: true,

@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import { hash } from "bcrypt";
-import { config } from "dotenv";
 import Jwt from "jsonwebtoken";
 import { isEmailValid } from "../../libs/validate.js";
+import { prisma } from "../../../prisma/main.js";
 
 const registerUserController = async (req, res) => {
   let { name, email, password } = req.body;
@@ -21,10 +20,7 @@ const registerUserController = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     let exists = await prisma.user.findFirst({ where: { email } });
 
     if (exists) {

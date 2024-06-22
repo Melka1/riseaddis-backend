@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getRealEstateList = async (_, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const realEstates = await prisma.realEstate.findMany({
       where: { status: "active" },
       select: {
@@ -13,7 +10,7 @@ const getRealEstateList = async (_, res) => {
         currency: true,
       },
     });
-    console.log(realEstates);
+
     return res.status(200).json({ realEstates, error: false });
   } catch (error) {
     console.log(error);

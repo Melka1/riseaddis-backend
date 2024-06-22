@@ -1,14 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getImages = async (req, res) => {
   let { type } = req.params;
-  console.log(type);
-
-  let prisma;
 
   try {
-    prisma = new PrismaClient();
-
     let images = await prisma.imageGallery.findMany({
       where: {
         name: type,

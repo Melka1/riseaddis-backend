@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const deletePayments = async (req, res) => {
   const { paymentIds } = req.body;
@@ -9,11 +9,9 @@ const deletePayments = async (req, res) => {
       error: true,
     });
   }
-  let prisma;
 
   try {
-    prisma = new PrismaClient();
-    const payments = await prisma.payment.deleteMany({
+    await prisma.payment.deleteMany({
       where: {
         id: {
           in: paymentIds,
@@ -21,7 +19,6 @@ const deletePayments = async (req, res) => {
       },
     });
 
-    console.log(payments);
     return res.status(200).json({
       message: `Payment${
         paymentIds.length > 0 ? "s" : ""

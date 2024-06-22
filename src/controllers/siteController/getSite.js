@@ -1,13 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getSite = async (req, res) => {
   const { name } = req.params;
   const { realestate } = req.query;
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const site = await prisma.site.findFirst({
       where: { link: name, realEstate: { link: realestate } },
       include: {
@@ -23,7 +20,7 @@ const getSite = async (req, res) => {
         },
       },
     });
-    console.log(site);
+
     return res.status(200).json({ site, error: false });
   } catch (error) {
     console.log(error);

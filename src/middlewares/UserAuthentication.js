@@ -1,6 +1,6 @@
 import Jwt from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
 import { config } from "dotenv";
+import { prisma } from "../../prisma/main.js";
 
 const HASH_SECRET_KEY = config(process.cwd, ".env").parsed.HASH_SECRET_KEY;
 
@@ -33,10 +33,7 @@ const userAuthentication = (req, res, next) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     prisma.user.findUnique({ where: { id: uid } }).then((user) => {
       if (!user) {
         return res.status(404).json({

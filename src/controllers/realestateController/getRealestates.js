@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getRealEstates = async (_, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const realEstates = await prisma.realEstate.findMany({
       where: { status: "active" },
       include: {

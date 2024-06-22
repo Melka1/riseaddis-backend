@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getAllRealEstate = async (_, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const realEstates = await prisma.realEstate.findMany({});
 
     return res.status(200).json({

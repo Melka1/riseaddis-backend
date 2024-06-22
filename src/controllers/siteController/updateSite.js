@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const updateSite = async (req, res) => {
   const {
@@ -27,10 +27,7 @@ const updateSite = async (req, res) => {
     images,
   } = req.body;
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     let exists = await prisma.site.findFirst({ where: { id: siteId } });
 
     if (!exists) {
@@ -66,8 +63,6 @@ const updateSite = async (req, res) => {
     if (featured || typeof featured == "boolean") query.featured = featured;
     if (realEstateId) query.realEstateId = realEstateId;
 
-    console.log(query);
-
     const updatedSite = await prisma.site.update({
       where: { id: siteId },
       data: query,
@@ -77,8 +72,8 @@ const updateSite = async (req, res) => {
       error: false,
       updatedSite,
     });
-  } catch (e) {
-    console.log(e.message);
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: "Server error, please try again!",
       error: true,

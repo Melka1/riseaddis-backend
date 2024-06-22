@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const updateRealestate = async (req, res) => {
   const {
@@ -52,18 +52,15 @@ const updateRealestate = async (req, res) => {
   if (currency) query.currency = currency;
   if (status) query.status = status;
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const realestate = await prisma.realEstate.update({
       where: { id },
       data: query,
     });
 
     return res.status(200).json(realestate);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: "Server error, please try again",
       error: true,

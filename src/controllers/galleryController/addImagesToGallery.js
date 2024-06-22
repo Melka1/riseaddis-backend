@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 export default async function addImagesToGallery(req, res) {
   let { name, image } = req.body;
@@ -10,10 +10,7 @@ export default async function addImagesToGallery(req, res) {
     });
   }
 
-  let prisma;
   try {
-    prisma = new PrismaClient();
-
     const imageUploaded = await prisma.imageGallery.create({
       data: {
         name,

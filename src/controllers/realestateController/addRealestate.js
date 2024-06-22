@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const addRealestate = async (req, res) => {
   const {
@@ -20,10 +20,7 @@ const addRealestate = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     let exists = await prisma.realEstate.findFirst({ where: { name } });
 
     if (exists) {
@@ -46,6 +43,7 @@ const addRealestate = async (req, res) => {
         currency,
       },
     });
+
     return res.status(200).json({ realestate, error: false });
   } catch (err) {
     console.log(err);

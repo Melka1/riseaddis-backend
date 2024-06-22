@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getArticles = async (req, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const articles = await prisma.article.findMany({
       where: { status: "published" },
     });

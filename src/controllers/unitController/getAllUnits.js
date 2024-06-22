@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getAllUnits = async (_, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const unitList = await prisma.unit.findMany({
       include: {
         site: {

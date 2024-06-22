@@ -1,11 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getUnitOverview = async (_, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     const units = await prisma.unit.findMany({
       select: {
         status: true,

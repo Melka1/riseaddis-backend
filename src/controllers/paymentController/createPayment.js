@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { isValidObjectId } from "mongoose";
+import { prisma } from "../../../prisma/main.js";
 
 export default async function createPayment(req, res) {
   const { paymentTypeId, paymentList, siteIds } = req.body;
@@ -18,10 +18,7 @@ export default async function createPayment(req, res) {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const payment = await prisma.payment.create({
       data: {
         paymentTypeId,

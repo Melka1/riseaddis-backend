@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const addArticle = async (req, res) => {
   const { title, paragraphs, imageUrl } = req.body;
@@ -17,11 +17,7 @@ const addArticle = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     prisma.article
       .create({
         data: {

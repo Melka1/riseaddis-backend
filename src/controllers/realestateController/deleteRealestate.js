@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const deleteRealestate = async (req, res) => {
   const { ids } = req.body;
@@ -10,11 +10,9 @@ const deleteRealestate = async (req, res) => {
       error: true,
     });
   }
-  let prisma;
 
   try {
-    prisma = new PrismaClient();
-    const realestates = await prisma.realEstate.deleteMany({
+    const realEstates = await prisma.realEstate.deleteMany({
       where: {
         id: {
           in: ids,
@@ -22,10 +20,9 @@ const deleteRealestate = async (req, res) => {
       },
     });
 
-    console.log(realestates);
     return res.status(200).json({
       message: `Realestate${
-        realestates.length > 1 ? "s" : ""
+        realEstates.length > 1 ? "s" : ""
       } deleted successfully`,
       error: false,
     });

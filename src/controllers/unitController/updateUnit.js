@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const updateUnit = async (req, res) => {
   const {
@@ -38,10 +38,7 @@ const updateUnit = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     let exists = await prisma.unit.findFirst({ where: { id: unitId } });
 
     if (!exists) {
@@ -66,8 +63,6 @@ const updateUnit = async (req, res) => {
     if (price) query.price = price;
     if (images) query.images = images;
     if (status) query.status = status;
-
-    console.log(query);
 
     const updatedUnit = await prisma.unit.update({
       where: { id: unitId },

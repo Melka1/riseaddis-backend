@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 export default async function addAmenityToSite(req, res) {
   const { name, imageId, siteId } = req.body;
@@ -10,11 +10,7 @@ export default async function addAmenityToSite(req, res) {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     prisma.amenity
       .create({
         data: {

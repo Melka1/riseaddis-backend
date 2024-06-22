@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const updateArticle = async (req, res) => {
   const { articleId, title, paragraphs, imageUrl, status } = req.body;
@@ -22,10 +22,7 @@ const updateArticle = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     let query = {};
 
     if (title) query.title = title;

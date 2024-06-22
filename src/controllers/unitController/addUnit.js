@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const addUnit = async (req, res) => {
   const {
@@ -31,10 +31,7 @@ const addUnit = async (req, res) => {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const unit = await prisma.unit.create({
       data: {
         name,

@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getSites = async (_, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const sites = await prisma.site.findMany({
       where: { status: "active" },
       include: {
@@ -18,7 +15,7 @@ const getSites = async (_, res) => {
         },
       },
     });
-    console.log(sites);
+
     return res.status(200).json({
       sites,
       error: false,

@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getSitesAmenities = async (_, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
     const siteAmenities = await prisma.site.findMany({
       select: {
         id: true,

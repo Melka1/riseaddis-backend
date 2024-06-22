@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 export default async function updateAmenity(req, res) {
   const { name, imageId, amenityId } = req.body;
@@ -10,11 +10,7 @@ export default async function updateAmenity(req, res) {
     });
   }
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     prisma.amenity
       .update({
         where: {

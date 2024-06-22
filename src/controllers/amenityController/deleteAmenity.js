@@ -1,14 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const deleteAmenity = async (req, res) => {
   const { amenityId } = req.body;
   console.log(amenityId);
 
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     prisma.amenity
       .delete({
         where: {

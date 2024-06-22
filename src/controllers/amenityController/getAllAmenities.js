@@ -1,11 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../prisma/main.js";
 
 const getAllAmenities = async (req, res) => {
-  let prisma;
-
   try {
-    prisma = new PrismaClient();
-
     const amenities = await prisma.amenity.findMany({
       include: {
         image: true,
