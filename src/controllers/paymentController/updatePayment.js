@@ -2,7 +2,8 @@ import { isValidObjectId } from "mongoose";
 import { prisma } from "../../../prisma/main.js";
 
 export default async function updatePayment(req, res) {
-  const { paymentId, siteIds, paymentList, paymentTypeId } = req.body;
+  const { paymentId, siteIds, paymentList, paymentTypeId, previousSiteList } =
+    req.body;
 
   if (!paymentId) {
     return res.status(400).json({
@@ -46,6 +47,21 @@ export default async function updatePayment(req, res) {
     });
   }
 
+  let siteListToConnect = siteIds
+    .filter((siteId) => !previousSiteList.includes(siteId))
+    .map((siteId) => {
+      return {
+        id: siteId,
+      };
+    });
+  let siteListToDisconnect = previousSiteList
+    .filter((siteId) => !siteIds.includes(siteId))
+    .map((siteId) => {
+      return {
+        id: siteId,
+      };
+    });
+
   try {
     const payment = await prisma.payment.update({
       where: {
@@ -54,15 +70,9 @@ export default async function updatePayment(req, res) {
       data: {
         paymentTypeId,
         list: paymentList,
-        siteIds: {
-          set: siteIds,
-        },
         sites: {
-          connect: siteIds.map((siteId) => {
-            return {
-              id: siteId,
-            };
-          }),
+          connect: siteListToConnect,
+          disconnect: siteListToDisconnect,
         },
       },
     });
@@ -77,7 +87,5 @@ export default async function updatePayment(req, res) {
     return res
       .status(500)
       .json({ message: "Server error, please try again", error: true });
-  } finally {
-    prisma.$disconnect();
   }
 }
