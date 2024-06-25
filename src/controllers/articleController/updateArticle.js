@@ -22,14 +22,14 @@ const updateArticle = async (req, res) => {
     });
   }
 
+  let query = {};
+
+  if (title) query.title = title;
+  if (paragraphs) query.paragraphs = paragraphs;
+  if (imageUrl) query.imageUrl = imageUrl;
+  if (status) query.status = status;
+
   try {
-    let query = {};
-
-    if (title) query.title = title;
-    if (paragraphs) query.paragraphs = paragraphs;
-    if (imageUrl) query.imageUrl = imageUrl;
-    if (status) query.status = status;
-
     prisma.article
       .update({
         where: {
@@ -41,13 +41,6 @@ const updateArticle = async (req, res) => {
         return res.json({
           message: "Article updated successfully",
           error: false,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json({
-          message: "Server error, please try again later",
-          error: true,
         });
       });
   } catch (err) {

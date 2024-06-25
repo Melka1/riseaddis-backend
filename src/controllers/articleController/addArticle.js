@@ -1,7 +1,9 @@
+// import { PrismaClient } from "@prisma/client";
 import { prisma } from "../../../prisma/main.js";
 
 const addArticle = async (req, res) => {
   const { title, paragraphs, imageUrl } = req.body;
+  const uid = req.uid;
 
   if (!title) {
     return res.json({
@@ -18,6 +20,7 @@ const addArticle = async (req, res) => {
   }
 
   try {
+    // let prisma = new PrismaClient();
     prisma.article
       .create({
         data: {
@@ -25,6 +28,11 @@ const addArticle = async (req, res) => {
           link: title.toLowerCase().split(" ").join("-"),
           paragraphs,
           imageUrl,
+          author: {
+            connect: {
+              id: uid,
+            },
+          },
         },
       })
       .then(() => {

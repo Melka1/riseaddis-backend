@@ -2,7 +2,15 @@ import { prisma } from "../../../prisma/main.js";
 
 const getAllArticles = async (_, res) => {
   try {
-    const articles = await prisma.article.findMany({});
+    const articles = await prisma.article.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
 
     return res.status(200).json({
       articles,

@@ -13,6 +13,8 @@ model User {
   email   String   @unique
   password String
   role Role? @default(user)
+  article Article[]
+  articleIds String[]
 }
 
 model Unit {
@@ -149,6 +151,9 @@ model Article {
   imageUrl String?
 
   status ArticleStatus @default(draft)
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
