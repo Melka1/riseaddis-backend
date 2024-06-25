@@ -20,34 +20,47 @@ const addArticle = async (req, res) => {
   }
 
   try {
-    // let prisma = new PrismaClient();
-    prisma.article
-      .create({
-        data: {
-          title,
-          link: title.toLowerCase().split(" ").join("-"),
-          paragraphs,
-          imageUrl,
-          author: {
-            connect: {
-              id: uid,
+    let exists = await prisma.article.findFirst({
+      where: {
+        title,
+      },
+    });
+
+    if (exists) {
+      return res.status(400).json({
+        message: "Article already exists by this title",
+        error: true,
+      });
+    }
+
+    !exists &&
+      prisma.article
+        .create({
+          data: {
+            title,
+            link: title.toLowerCase().split(" ").join("-"),
+            paragraphs,
+            imageUrl,
+            author: {
+              connect: {
+                id: uid,
+              },
             },
           },
-        },
-      })
-      .then(() => {
-        return res.status(200).json({
-          message: "Article added successfully",
-          error: false,
+        })
+        .then(() => {
+          return res.status(200).json({
+            message: "Article added successfully",
+            error: false,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json({
+            message: "Server error, please try again later",
+            error: true,
+          });
         });
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json({
-          message: "Server error, please try again later",
-          error: true,
-        });
-      });
   } catch (err) {
     console.log(err);
     return res.status(500).json({

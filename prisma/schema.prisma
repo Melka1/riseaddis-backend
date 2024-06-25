@@ -15,6 +15,9 @@ model User {
   role Role? @default(user)
   article Article[]
   articleIds String[]
+
+  image String?
+
 }
 
 model Unit {
@@ -145,7 +148,7 @@ type PaymentList {
 
 model Article {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
+  title String @unique
   link String
   paragraphs String[]
   imageUrl String?

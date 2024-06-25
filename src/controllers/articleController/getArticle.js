@@ -1,9 +1,11 @@
 import { prisma } from "../../../prisma/main.js";
 
-const getArticles = async (req, res) => {
+const getArticle = async (req, res) => {
+  const { name } = req.params;
+
   try {
-    const articles = await prisma.article.findMany({
-      where: { status: "published" },
+    const article = await prisma.article.findFirst({
+      where: { link: name, status: "published" },
       include: {
         author: {
           select: {
@@ -14,10 +16,7 @@ const getArticles = async (req, res) => {
       },
     });
 
-    return res.status(200).json({
-      articles,
-      error: false,
-    });
+    return res.status(200).json({ article, error: false });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -29,4 +28,4 @@ const getArticles = async (req, res) => {
   }
 };
 
-export default getArticles;
+export default getArticle;
