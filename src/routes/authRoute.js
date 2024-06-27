@@ -4,7 +4,7 @@ import registerUserController from "../controllers/authController/registerUserCo
 import loginUserController from "../controllers/authController/loginUserController.js";
 import requestPasswordChange from "../controllers/authController/requestPasswordChange.js";
 import verifyOTP from "../controllers/authController/verifyOTP.js";
-import checkOTPSession from "../controllers/authController/checkOTPsession.js";
+import checkOTPSession from "../controllers/authController/checkOTPSession.js";
 
 const authRoute = Router();
 
