@@ -11,6 +11,7 @@ const getArticle = async (req, res) => {
           select: {
             name: true,
             image: true,
+            role: true,
           },
         },
       },

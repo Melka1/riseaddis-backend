@@ -4,6 +4,7 @@ const getUser = async (req, res) => {
   let user = {
     name: userResponse.name,
     email: userResponse.email,
+    image: userResponse.image,
     role: userResponse.role,
   };
 
