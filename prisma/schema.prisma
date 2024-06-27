@@ -162,6 +162,13 @@ model Article {
   updatedAt DateTime @updatedAt
 }
 
+model OTP {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  uid String @db.ObjectId
+  code String
+  expiresAt DateTime 
+}
+
 enum ArticleStatus {
   draft
   published
