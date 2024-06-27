@@ -31,7 +31,17 @@ const verifyOTP = async (req, res) => {
       return res.status(400).json({ message: "Incorrect OTP value" });
     }
 
-    return res.status(200).json({ message: "OTP verified successfully" });
+    prisma.oTP
+      .update({ where: { id: otpId }, data: { verified: true } })
+      .then(() => {
+        return res.status(200).json({ message: "OTP verified successfully" });
+      })
+      .catch((error) => {
+        console.log(error);
+        return res
+          .status(500)
+          .json({ message: "Server error, please try again later" });
+      });
   } catch (err) {
     console.log(err);
     return res
