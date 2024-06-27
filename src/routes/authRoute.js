@@ -5,6 +5,7 @@ import loginUserController from "../controllers/authController/loginUserControll
 import requestPasswordChange from "../controllers/authController/requestPasswordChange.js";
 import verifyOTP from "../controllers/authController/verifyOTP.js";
 import checkOTPSession from "../controllers/authController/checkOTPSession.js";
+import changePassword from "../controllers/authController/changePassword.js";
 
 const authRoute = Router();
 
@@ -13,5 +14,6 @@ authRoute.post("/login", loginUserController);
 authRoute.post("/requestOTP", requestPasswordChange);
 authRoute.post("/verifyOTP", verifyOTP);
 authRoute.post("/checkOTPSession", checkOTPSession);
+authRoute.post("/changePassword", changePassword);
 
 export default authRoute;
