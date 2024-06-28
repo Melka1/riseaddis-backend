@@ -25,6 +25,13 @@ const getSite = async (req, res) => {
       },
     });
 
+    if (!site) {
+      return res.status(404).json({
+        message: "Site not found",
+        error: true,
+      });
+    }
+
     return res.status(200).json({ site, error: false });
   } catch (error) {
     console.log(error);

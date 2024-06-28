@@ -17,6 +17,13 @@ const getArticle = async (req, res) => {
       },
     });
 
+    if (!article) {
+      return res.status(404).json({
+        message: "Article not found",
+        error: true,
+      });
+    }
+
     return res.status(200).json({ article, error: false });
   } catch (error) {
     console.log(error);
@@ -24,8 +31,6 @@ const getArticle = async (req, res) => {
       message: "Server error, please try again!",
       error: true,
     });
-  } finally {
-    prisma.$disconnect();
   }
 };
 
