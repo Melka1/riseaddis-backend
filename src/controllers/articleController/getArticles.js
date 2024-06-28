@@ -1,8 +1,13 @@
 import { prisma } from "../../../prisma/main.js";
 
-const getArticles = async (req, res) => {
+const getArticles = async (_, res) => {
   try {
     const articles = await prisma.article.findMany({
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
       where: { status: "published" },
       include: {
         author: {
