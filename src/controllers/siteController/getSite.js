@@ -9,7 +9,11 @@ const getSite = async (req, res) => {
       where: { link: name, realEstate: { link: realestate } },
       include: {
         realEstate: true,
-        units: true,
+        units: {
+          where: {
+            status: "active",
+          },
+        },
         payments: {
           include: {
             paymentType: true,
@@ -28,8 +32,6 @@ const getSite = async (req, res) => {
       message: "Server error, please try again!",
       error: true,
     });
-  } finally {
-    prisma.$disconnect();
   }
 };
 

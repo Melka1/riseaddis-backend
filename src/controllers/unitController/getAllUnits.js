@@ -53,8 +53,6 @@ const getAllUnits = async (_, res) => {
       message: "Server error, please try again",
       error: true,
     });
-  } finally {
-    prisma.$disconnect();
   }
 };
 

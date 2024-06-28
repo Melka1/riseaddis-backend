@@ -23,8 +23,6 @@ const getSiteList = async (req, res) => {
     return res
       .status(500)
       .json({ message: "Server error, please try again", error: true });
-  } finally {
-    prisma.$disconnect();
   }
 };
 
