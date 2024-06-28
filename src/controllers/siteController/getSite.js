@@ -6,7 +6,7 @@ const getSite = async (req, res) => {
 
   try {
     const site = await prisma.site.findFirst({
-      where: { link: name, realEstate: { link: realestate } },
+      where: { link: name, status: "active", realEstate: { link: realestate } },
       include: {
         realEstate: true,
         units: {
