@@ -8,6 +8,7 @@ const getAllUnits = async (_, res) => {
           include: {
             realEstate: {
               select: {
+                id: true,
                 name: true,
               },
             },
