@@ -2,6 +2,7 @@ const getUser = async (req, res) => {
   const userResponse = req.user;
 
   let user = {
+    id: userResponse.id,
     name: userResponse.name,
     email: userResponse.email,
     image: userResponse.image,

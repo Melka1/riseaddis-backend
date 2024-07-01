@@ -3,6 +3,7 @@ import { prisma } from "../../../prisma/main.js";
 const updateUser = (req, res) => {
   const { name, image } = req.body;
   const uid = req.user.id;
+  console.log(name);
 
   if (!name && !image) {
     return res.status(400).json({
@@ -22,6 +23,13 @@ const updateUser = (req, res) => {
       return res.status(200).json({
         message: "User updated successfully",
         error: false,
+        user: {
+          id: response.id,
+          name: response.name,
+          email: response.email,
+          image: response.image,
+          role: response.role,
+        },
       });
     })
     .catch((err) => {
