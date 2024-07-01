@@ -68,6 +68,14 @@ const updateSite = async (req, res) => {
       data: query,
     });
 
+    if (status && status !== "active") {
+      prisma.unit
+        .updateMany({ where: { id: siteId }, data: { status: "draft" } })
+        .catch((err) => {
+          console.error("Error updating units status to draft", err);
+        });
+    }
+
     return res.status(200).json({
       error: false,
       updatedSite,

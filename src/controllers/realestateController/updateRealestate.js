@@ -58,6 +58,14 @@ const updateRealestate = async (req, res) => {
       data: query,
     });
 
+    if (status && status !== "active") {
+      prisma.site
+        .updateMany({ where: { realEstateId: id }, data: { status: "draft" } })
+        .catch((err) => {
+          console.log("Failed to update site status", err);
+        });
+    }
+
     return res.status(200).json(realestate);
   } catch (error) {
     console.log(error);
@@ -65,8 +73,6 @@ const updateRealestate = async (req, res) => {
       message: "Server error, please try again",
       error: true,
     });
-  } finally {
-    prisma.$disconnect();
   }
 };
 
